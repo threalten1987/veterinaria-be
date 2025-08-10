@@ -39,6 +39,10 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente update(long id, Cliente cliente) {
         Cliente existingCliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: " + id));
+        Optional<Cliente> existingClienteByEmail = clienteRepository.findByEmail(cliente.getEmail());
+        if (existingClienteByEmail.isPresent()) {
+            throw new RuntimeException("Ya existe un cliente con el email: " + cliente.getEmail());
+        }
         existingCliente.setNombre(cliente.getNombre());
         existingCliente.setEmail(cliente.getEmail());
         existingCliente.setTelefono(cliente.getTelefono());

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -27,6 +28,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente save(Cliente cliente) {
+        Optional<Cliente> existingClienteByEmail = clienteRepository.findByEmail(cliente.getEmail());
+        if (existingClienteByEmail.isPresent()) {
+            throw new RuntimeException("Ya existe un cliente con el email: " + cliente.getEmail());
+        }
         return clienteRepository.save(cliente);
     }
 

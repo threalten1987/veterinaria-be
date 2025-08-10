@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MascotaRepository extends JpaRepository<Mascota, Long> {
+    public Mascota findByNombre(String nombre);
 }

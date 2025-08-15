@@ -5,6 +5,7 @@ import com.veterinaria.veterinaria_be.model.Mascota;
 import com.veterinaria.veterinaria_be.service.ClienteService;
 import com.veterinaria.veterinaria_be.service.MascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class VeterinariaController {
     }
 
     @PostMapping("/clientes")
+    @ResponseStatus(HttpStatus.CREATED)
     public Cliente createCliente(@RequestBody Cliente cliente) {
         System.out.println("Creando cliente: " + cliente);
         return clienteService.save(cliente);
@@ -45,7 +47,8 @@ public class VeterinariaController {
         return mascotaService.findAll();
     }
 
-    @PostMapping("/mascotas")
+    @PostMapping("/mascotas/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Mascota createMascota(@PathVariable Long id, @RequestBody Mascota mascota) {
         System.out.println("Creando mascota: " + mascota);
         Cliente cliente = clienteService.findById(id);

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "mascotas")
 public class Mascota {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String nombre;
